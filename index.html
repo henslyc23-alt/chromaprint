@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ChromaPrint | Small-batch 3D printing studio</title>
+<meta name="description" content="Small-batch 3D printed fidgets, desk gear and custom pieces. Printed in-house, shipped across the US." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#f3f4f2;--ink:#111;--orange:#ea5a2a;--yellow:#fde84f;--cyan:#6ee7f9;--tint:#e4e8e6;--muted:#444;--head:"Space Grotesk",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--mono);line-height:1.6}
+img{max-width:100%;display:block}a{color:inherit}button{font-family:inherit;cursor:pointer}
+.container{width:min(1180px,100% - 48px);margin-inline:auto}
+.grid-bg{background-image:linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px);background-size:48px 48px}
+.h1,.h2,.hero__title{font-family:var(--head);text-transform:uppercase;font-weight:700;line-height:.95;margin:0;letter-spacing:-.02em}
+.h1{font-size:clamp(44px,6vw,72px)}.h2{font-size:clamp(38px,5vw,64px)}.h2--light{color:#fff}
+.eyebrow{font-size:13px;letter-spacing:.35em;text-transform:uppercase;color:var(--orange);margin:0 0 14px}.eyebrow--cyan{color:var(--cyan)}
+.mono-sm{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.body{color:var(--muted);max-width:52ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:3px solid var(--ink);padding:16px 28px;font-weight:700;font-size:14px;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;color:var(--ink);box-shadow:5px 5px 0 var(--ink);transition:transform .1s,box-shadow .1s}
+.btn:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 var(--ink)}.btn:disabled{opacity:.6}
+.btn--orange{background:var(--orange)}.btn--white{background:#fff}.btn--cyan{background:var(--cyan)}
+.btn--sm{padding:10px 18px;font-size:12px;box-shadow:4px 4px 0 var(--ink)}.btn--block{width:100%}
+.tag{display:inline-flex;align-items:center;gap:10px;border:3px solid var(--ink);padding:10px 18px;font-size:13px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;box-shadow:5px 5px 0 var(--ink);background:var(--yellow)}
+.tag--orange{background:var(--orange);padding:6px 12px;font-size:11px;box-shadow:none}
+.header{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:3px solid var(--ink)}
+.header__row{display:flex;align-items:center;justify-content:space-between;padding-block:18px}
+.logo{text-decoration:none;display:flex;align-items:center}.logo img{height:60px;width:auto}
+.logo__text{font-family:var(--head);font-weight:700;font-size:24px}
+.nav{display:flex;gap:40px}.nav a{text-decoration:none;font-weight:500;font-size:15px;letter-spacing:.3em;text-transform:uppercase}.nav a:hover{color:var(--orange)}
+.cart-btn{display:flex;align-items:center;gap:12px;background:#fff;border:3px solid var(--ink);padding:12px 20px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;box-shadow:4px 4px 0 var(--ink)}
+.cart-btn b{background:var(--orange);padding:2px 10px;letter-spacing:0}
+.hero{padding:90px 0 110px;border-bottom:3px solid var(--ink);overflow:hidden}
+.hero__grid{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center}
+.hero__title{font-size:clamp(64px,9.5vw,138px);margin:40px 0 36px;letter-spacing:-.05em}
+.hl{display:inline-block;background:var(--orange);padding:0 28px 0 16px;box-shadow:8px 8px 0 var(--ink);margin:4px 0}
+.hero__copy{font-size:17px;max-width:44ch;color:var(--muted);margin-bottom:36px}
+.hero__cta{display:flex;gap:20px;flex-wrap:wrap}
+.hero__media{position:relative}
+.hero__media img,.hero__ph{border:3px solid var(--ink);box-shadow:16px 16px 0 var(--ink);aspect-ratio:1;object-fit:cover;width:100%;background:#0a0a12}
+.sticker{position:absolute;z-index:2;background:var(--yellow);border:3px solid var(--ink);padding:8px 20px;font-family:var(--head);font-weight:700;text-transform:uppercase;letter-spacing:.1em;box-shadow:4px 4px 0 var(--ink)}
+.sticker--top{top:-22px;left:-30px;transform:rotate(-4deg)}
+.sticker--bottom{bottom:-18px;right:-10px;background:#fff;transform:rotate(3deg);font-size:14px}
+.marquee{background:var(--ink);color:#fff;overflow:hidden}
+.marquee__track{display:flex;gap:48px;width:max-content;padding:24px 0;animation:scroll 35s linear infinite}
+.marquee span{display:inline-flex;align-items:center;gap:48px;text-transform:uppercase;letter-spacing:.3em;font-size:15px;white-space:nowrap}
+.marquee i{width:12px;height:12px;background:var(--orange);display:inline-block}
+@keyframes scroll{to{transform:translateX(-50%)}}
+.section{padding:120px 0}.section--dark{background:var(--ink);color:#fff}
+.section--tint{background:var(--tint);border-block:3px solid var(--ink)}
+.section__head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px}
+.filters{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:56px}
+.filter{background:#fff;border:3px solid var(--ink);padding:18px 26px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;font-size:14px;color:var(--ink)}
+.filter.on{background:var(--ink);color:#fff}
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:40px}
+.card{background:#fff;border:3px solid var(--ink);display:flex;flex-direction:column}
+.card__img{position:relative;aspect-ratio:1;border-bottom:3px solid var(--ink);background:#f4f6f8;overflow:hidden}
+.card__img img{width:100%;height:100%;object-fit:cover}
+.badge{position:absolute;top:16px;left:16px;z-index:2;background:var(--orange);border:3px solid var(--ink);padding:2px 14px;font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+.card__body{padding:24px 28px 28px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card__row{display:flex;justify-content:space-between;gap:12px}
+.card__row h3{margin:0;font-family:var(--head);font-size:20px;text-transform:uppercase}.card__row strong{font-family:var(--head);font-size:22px}
+.card__body p{margin:0;font-size:14px;color:var(--muted)}
+.card__foot{margin-top:auto;padding-top:14px;display:flex;justify-content:space-between;align-items:center}
+.swatch{width:26px;height:26px;background:var(--ink);display:inline-block}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);border:3px solid #fff;margin-top:64px}
+.step{padding:36px 32px 48px;border-right:2px solid #fff}.step:last-child{border-right:0}
+.step__top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:36px}
+.step__icon{width:56px;height:56px;background:var(--orange);display:grid;place-items:center;color:var(--ink)}
+.step__num{font-family:var(--head);font-size:40px;font-weight:700;color:#555}
+.step h3{font-family:var(--head);text-transform:uppercase;font-size:24px;margin:0 0 14px}.step p{color:#bbb;font-size:14px;margin:0}
+.studio{display:grid;grid-template-columns:1.2fr 1fr;gap:80px;align-items:start}.studio .h2{margin-bottom:36px}
+.stats{display:grid;grid-template-columns:1fr 1fr;border:3px solid var(--ink);background:#fff}
+.stats div{padding:32px;display:flex;flex-direction:column;gap:10px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+.stats div:nth-child(2n){border-right:0}.stats div:nth-child(n+3){border-bottom:0}
+.stats span{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+.stats strong{font-family:var(--head);font-size:24px;text-transform:uppercase;line-height:1.1}
+.faq{display:grid;grid-template-columns:1fr 1.3fr;gap:80px}.faq .h2{margin-bottom:36px}
+.faq__item{border-bottom:3px solid var(--ink)}
+.faq__item button{width:100%;display:flex;justify-content:space-between;align-items:center;background:none;border:0;padding:32px 0;text-align:left;font-family:var(--head);font-size:22px;font-weight:700;text-transform:uppercase;color:var(--ink)}
+.faq__item.on svg{transform:rotate(180deg)}.faq__item p{margin:0 0 28px;color:var(--muted);max-width:60ch;display:none}.faq__item.on p{display:block}
+.footer{background:var(--ink);color:#fff;padding-top:80px}
+.footer__grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:60px;padding-bottom:70px}
+.footer__logo{height:110px;margin-bottom:24px}.footer p{color:#bbb;font-size:14px;max-width:38ch}
+.footer h4{color:var(--cyan);letter-spacing:.3em;text-transform:uppercase;font-size:13px;margin:0 0 24px}
+.footer__grid a{display:block;text-decoration:none;text-transform:uppercase;letter-spacing:.2em;font-size:14px;margin-bottom:16px}.footer__grid a:hover{color:var(--orange)}
+.footer__legal{border-top:1px solid #333;display:flex;justify-content:space-between;padding-block:28px;font-size:12px;letter-spacing:.25em;text-transform:uppercase;color:#aaa}
+.drawer-wrap{position:fixed;inset:0;z-index:50;display:none}.drawer-wrap.on{display:block}
+.drawer-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.7)}
+.drawer{position:absolute;top:0;right:0;height:100%;width:min(520px,100%);background:var(--bg);border-left:3px solid var(--ink);display:flex;flex-direction:column}
+.drawer__head{display:flex;justify-content:space-between;align-items:center;padding:28px 32px;border-bottom:3px solid var(--ink)}
+.drawer__head h3{margin:0;font-family:var(--head);font-size:26px;letter-spacing:.15em;text-transform:uppercase}
+.icon-btn{background:#fff;border:2px solid var(--cyan);width:36px;height:36px;display:grid;place-items:center}
+.icon-btn.bare{background:none;border:0;width:auto;height:auto;color:#555}
+.drawer__items{flex:1;overflow-y:auto;padding:32px}
+.line{display:flex;gap:20px;padding-bottom:28px;margin-bottom:28px;border-bottom:2px solid #d6d8d6}
+.line img,.line .ph{width:90px;height:90px;object-fit:cover;border:2px solid var(--ink);background:#fff}
+.line__info{flex:1;display:flex;flex-direction:column;gap:6px}.line__top,.line__bottom{display:flex;justify-content:space-between;align-items:center}
+.line__top strong{font-family:var(--head);text-transform:uppercase;font-size:17px}.line__bottom strong{font-family:var(--head);font-size:19px}
+.qty{display:inline-flex;align-items:center;border:3px solid var(--ink);background:#fff}
+.qty button{background:none;border:0;width:42px;height:42px;font-size:20px;font-weight:700}.qty span{min-width:44px;text-align:center;font-weight:700}
+.drawer__foot{padding:28px 32px;border-top:3px solid var(--ink);display:flex;flex-direction:column;gap:18px}
+.totals div{display:flex;justify-content:space-between;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding-block:4px}
+.grand{display:flex;justify-content:space-between;align-items:center;border-top:3px solid var(--ink);padding-top:16px}
+.grand span{font-family:var(--head);font-weight:700;font-size:20px;text-transform:uppercase}.grand strong{font-family:var(--head);font-size:34px}
+.page{padding:40px 0 100px}.page .h1{margin-bottom:48px}
+.checkout{display:grid;grid-template-columns:1.4fr 1fr;gap:60px;align-items:start}
+.form{display:flex;flex-direction:column;gap:24px}.form__2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+label{display:flex;flex-direction:column;gap:10px;font-size:13px;letter-spacing:.25em;text-transform:uppercase;font-weight:500}
+input,textarea{font:inherit;font-size:16px;letter-spacing:0;text-transform:none;padding:20px;background:transparent;border:3px solid var(--ink);color:var(--ink);width:100%}
+input:focus,textarea:focus{outline:3px solid var(--cyan);outline-offset:2px}
+input[readonly]{background:#eceeec;color:#777;border-color:#999}
+.notice{background:var(--tint);border:3px solid var(--ink);padding:18px 20px;margin:0;font-size:13px;letter-spacing:.2em;text-transform:uppercase}
+.error{color:#b00020;margin:0}
+.manifest{border:3px solid var(--ink);background:#fff}
+.manifest h3{margin:0;background:var(--ink);color:#fff;padding:26px 28px;font-family:var(--head);letter-spacing:.15em;text-transform:uppercase}
+.manifest__line{display:flex;justify-content:space-between;padding:24px 28px;border-bottom:3px solid var(--ink)}.manifest__line div{display:flex;flex-direction:column}
+.manifest .totals,.manifest .grand{padding:20px 28px}
+.unsub{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;gap:28px}
+.unsub__card{width:min(540px,100%);background:#fff;border:3px solid var(--ink);box-shadow:14px 14px 0 var(--ink);padding:40px;display:flex;flex-direction:column;gap:22px;align-items:flex-start}
+.unsub__card .h1{font-size:52px;margin:0}.unsub__card .form{width:100%}
+.hidden{display:none!important}
+@media(max-width:960px){.nav{display:none}.hero__grid,.studio,.faq,.checkout,.footer__grid{grid-template-columns:1fr;gap:48px}.steps{grid-template-columns:1fr 1fr}.step{border-bottom:2px solid #fff}.section{padding:80px 0}.sticker--top{left:0}}
+@media(max-width:560px){.steps,.form__2{grid-template-columns:1fr}.section__head{flex-direction:column;align-items:flex-start;gap:12px}}
+</style>
+</head>
+<body>
+
+<div id="chrome-top">
+  <header class="header">
+    <div class="container header__row">
+      <a href="#/" class="logo" aria-label="ChromaPrint home">
+        <img src="images/logo.png" alt="" onerror="this.remove()" /><span class="logo__text" id="logo-text">ChromaPrint</span>
+      </a>
+      <nav class="nav">
+        <a href="#shop" data-jump="shop">Shop</a>
+        <a href="#how" data-jump="how">How it works</a>
+        <a href="#studio" data-jump="studio">Studio</a>
+        <a href="#faq" data-jump="faq">FAQ</a>
+      </nav>
+      <button class="cart-btn" id="open-cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Cart <b id="cart-count">0</b>
+      </button>
+    </div>
+  </header>
+</div>
+
+<main>
+  <!-- HOME -->
+  <div id="view-home">
+    <section class="hero grid-bg">
+      <div class="container hero__grid">
+        <div>
+          <span class="tag">✦ Small-batch 3D printing studio</span>
+          <h1 class="hero__title">Objects<br>printed<br><span class="hl">Loud</span><br>shipped fast.</h1>
+          <p class="hero__copy">We specialize in 3d printed fidgets — all printed layer by layer in our studio and posted to your door in 2-4 days. No warehouses. No dropshipping. Just filament and chaos.</p>
+          <div class="hero__cta">
+            <a class="btn btn--orange" href="#shop" data-jump="shop">Shop the shelf</a>
+            <a class="btn btn--white" href="#how" data-jump="how">How it works</a>
+          </div>
+        </div>
+        <div class="hero__media">
+          <span class="sticker sticker--top">Freshly printed</span>
+          <img src="images/hero.jpg" alt="Assorted 3D printed vases, lamp and articulated dragon" onerror="this.outerHTML='<div class=hero__ph></div>'" />
+          <span class="sticker sticker--bottom">Ships across the US</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true"><div class="marquee__track" id="marquee"></div></div>
+
+    <section id="shop" class="section">
+      <div class="container">
+        <div class="section__head">
+          <div><p class="eyebrow">The object matrix</p><h2 class="h2">Shop the shelf</h2></div>
+          <p class="mono-sm" id="stock-count"></p>
+        </div>
+        <div class="filters" id="filters"></div>
+        <div class="products" id="products"></div>
+      </div>
+    </section>
+
+    <section id="how" class="section section--dark">
+      <div class="container">
+        <p class="eyebrow eyebrow--cyan">From file to doorstep</p>
+        <h2 class="h2 h2--light">How your order<br>gets made</h2>
+        <div class="steps" id="steps"></div>
+      </div>
+    </section>
+
+    <section id="studio" class="section section--tint">
+      <div class="container studio">
+        <div>
+          <p class="eyebrow">The studio</p>
+          <h2 class="h2">A print floor that<br>never sleeps</h2>
+          <p class="body">Chroma·Print started with a stubborn belief that small objects should feel like an event — and a refusal to sell anything grey. Today it's a six-machine print floor turning out articulated dragons, desk gear and custom pieces for people who would rather own something weird than something off a shelf.</p>
+          <p class="body">Everything you see here is designed, sliced and printed in-house. Nothing is drop-shipped, nothing sits in a warehouse, and if a print comes out wrong it goes in the recycle bin instead of your parcel.</p>
+        </div>
+        <div class="stats">
+          <div><span>Turnaround</span><strong>2–4 days print</strong></div>
+          <div><span>Machines</span><strong>6 × FDM printers</strong></div>
+          <div><span>Materials</span><strong>PLA · PETG · Recycled</strong></div>
+          <div><span>Custom work</span><strong>Open for commissions</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <div class="container faq">
+        <div>
+          <p class="eyebrow">Answers</p>
+          <h2 class="h2">Frequently<br>asked</h2>
+          <p class="body">Still stuck? Email the studio and a human replies, usually the same day.</p>
+          <a class="btn btn--white" href="mailto:hey@chromaprint.studio">hey@chromaprint.studio</a>
+        </div>
+        <div id="faq-list"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CHECKOUT -->
+  <section id="view-checkout" class="container page hidden">
+    <p class="eyebrow">Shipping terminal</p>
+    <h1 class="h1">Checkout</h1>
+    <div id="checkout-empty" class="hidden">
+      <p class="body">Your packing list is empty.</p>
+      <a class="btn btn--orange" href="#/">Shop the shelf</a>
+    </div>
+    <div id="checkout-done" class="hidden">
+      <p class="body"><strong>Order received — thanks!</strong> A secure payment link will follow by email within a few hours.</p>
+      <a class="btn btn--orange" href="#/">Back to the shelf</a>
+    </div>
+    <div class="checkout" id="checkout-main">
+      <form class="form" id="checkout-form">
+        <div class="form__2">
+          <label>Full name<input name="name" required></label>
+          <label>Email<input name="email" type="email" required></label>
+        </div>
+        <label>Address<input name="address" required></label>
+        <div class="form__2">
+          <label>Apartment, suite (optional)<input name="apt"></label>
+          <label>City<input name="city" required></label>
+        </div>
+        <div class="form__2">
+          <label>State / region<input name="state" required></label>
+          <label>ZIP / postal code<input name="zip" required></label>
+        </div>
+        <div class="form__2"><label>Country<input value="United States" readonly></label></div>
+        <p class="notice">We ship within the United States only — no international orders yet.</p>
+        <label>Print notes (optional)<textarea name="notes" rows="3" placeholder="Colour swaps, gift message, delivery instructions…"></textarea></label>
+        <button class="btn btn--orange btn--block" id="place-order">🔒 Place order</button>
+        <p class="error hidden" id="checkout-error">Something went wrong. Please try again.</p>
+        <p class="mono-sm">Payment isn't collected on the site yet — place the order and a secure payment link follows by email within a few hours.</p>
+      </form>
+      <aside class="manifest">
+        <h3>Print manifest</h3>
+        <div id="manifest-lines"></div>
+        <div class="totals"><div><span>Subtotal</span><span id="m-sub"></span></div><div><span>Shipping</span><span id="m-ship"></span></div></div>
+        <div class="grand"><span>Total</span><strong id="m-total"></strong></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- UNSUBSCRIBE -->
+  <section id="view-unsub" class="unsub grid-bg hidden">
+    <div class="unsub__card">
+      <span class="tag tag--orange">✉ Email notifications</span>
+      <form class="form" id="unsub-form">
+        <h1 class="h1">Unsubscribe</h1>
+        <p class="body">Sorry to see you go. Enter the address we should stop emailing — drops, restocks and studio news, gone.</p>
+        <label>Email address<input name="email" type="email" required placeholder="you@example.com"></label>
+        <label>Reason (optional)<textarea name="reason" rows="3" placeholder="Too many emails, not my thing, etc."></textarea></label>
+        <button class="btn btn--orange btn--block">Unsubscribe me</button>
+        <p class="error hidden" id="unsub-error">Something went wrong. Please try again.</p>
+      </form>
+      <div id="unsub-done" class="hidden">
+        <h1 class="h1">Done.</h1>
+        <p class="body">You're unsubscribed. Sorry to see you go.</p>
+        <a class="btn btn--white" href="#/">Back to the shop</a>
+      </div>
+    </div>
+    <p class="mono-sm" style="max-width:40ch;text-align:center">Order confirmations and shipping updates are transactional and still send.</p>
+  </section>
+</main>
+
+<footer class="footer" id="chrome-bottom">
+  <div class="container footer__grid">
+    <div>
+      <img class="footer__logo" src="images/logo.png" alt="ChromaPrint" onerror="this.remove()" />
+      <p>Small-batch 3D printing studio. Objects designed, printed and packed in-house, then shipped to your door.</p>
+    </div>
+    <div>
+      <h4>Shop</h4>
+      <a href="#shop" data-jump="shop">All objects</a>
+      <a href="#faq" data-jump="faq">Shipping &amp; timing</a>
+      <a href="#faq" data-jump="faq">Returns &amp; reprints</a>
+      <a href="#studio" data-jump="studio">The studio</a>
+    </div>
+    <div>
+      <h4>Say hi</h4>
+      <a href="mailto:info@chroma-print.com">✉ info@chroma-print.com</a>
+      <!-- TODO: put your real profile URLs here -->
+      <a href="#">Facebook</a>
+      <a href="#">TikTok</a>
+    </div>
+  </div>
+  <div class="container footer__legal"><span>© <span id="year"></span> Chroma·Print Collective</span><span>Ships within the United States</span></div>
+</footer>
+
+<div class="drawer-wrap" id="drawer">
+  <div class="drawer-backdrop" id="drawer-bg"></div>
+  <aside class="drawer" role="dialog" aria-label="Packing list">
+    <div class="drawer__head"><h3>Packing list</h3><button class="icon-btn" id="close-cart" aria-label="Close cart">✕</button></div>
+    <div class="drawer__items" id="drawer-items"></div>
+    <div class="drawer__foot" id="drawer-foot">
+      <div class="totals"><div><span>Subtotal</span><span id="d-sub"></span></div><div><span>Shipping</span><span id="d-ship"></span></div></div>
+      <div class="grand"><span>Total</span><strong id="d-total"></strong></div>
+      <a class="btn btn--orange btn--block" href="#/checkout" id="go-checkout">Checkout</a>
+    </div>
+  </aside>
+</div>
+
+<script>
+/* ============ CONFIG — edit these ============ */
+const SHIPPING_FLAT = 6.5;
+// Where orders / unsubscribes get POSTed as JSON. Leave empty to just log to the console (demo mode).
+// Easy options: a Formspree endpoint, a Google Apps Script web app URL, Netlify function, etc.
+const ORDER_ENDPOINT = "";
+const UNSUBSCRIBE_ENDPOINT = "";
+
+const CATEGORIES = [
+  ["all","All"],["flexi","Flexi & Fidgets"],["desk","Desk & Tech"],["home","Home & Decor"],["custom","Custom & Gifts"]
+];
+// Put photos in an /images folder next to this file (or change the paths).
+const PRODUCTS = [
+  {id:"leaf-spinner",name:"Leaf Spinner Fidget",price:14,description:"Palm-sized one-handed spinner with a center hub",category:"flexi",color:"White",image:"images/leaf-spinner.jpg"},
+  {id:"flex-coasters",name:"Flexible Grid Coasters",price:19,description:"Flexible TPU grid coasters — set of 4",category:"home",color:"White",image:"images/flex-coasters.jpg"},
+  {id:"keyboard-clicker",name:"Keyboard Clicker Fidget",price:8,description:"Mechanical keycap fidget with a satisfying click",category:"desk",color:"White",image:"images/keyboard-clicker.jpg"},
+  {id:"infinity-cube",name:"Infinity Fidget Cube",price:15,description:"Foldable cube that flips into endless shapes",category:"flexi",color:"White",image:"images/infinity-cube.jpg",badge:"Drop"},
+  {id:"gyro-rings",name:"Gyro Rotating Rings",price:18,description:"Mesmerizing nested rings that spin freely on every axis",category:"flexi",color:"White",image:"images/gyro-rings.jpg",badge:"Drop"}
+];
+const MARQUEE = ["Custom commissions open","Ships anywhere in the United States","Printed in-house, never dropshipped","PLA · PETG · Recycled filament","New drops every week"];
+const STEPS = [
+  ["✦","Pick your object","Browse the shelf and pick your object — every piece is printed to order in white filament."],
+  ["⎙","It gets printed","Your file hits the printer within 24 hours. Layer by layer, 0.16mm at a time — no warehouse, no middleman."],
+  ["▣","Hand-packed","Supports are snapped off, every joint is quality-checked, and each piece is wrapped in recycled kraft before it leaves the studio."],
+  ["➜","It ships to you","Tracked shipping anywhere in the United States — 2-4 day print time plus transit, with a real tracking number."]
+];
+// NOTE: FAQ answers are drafted — edit to match your real policies.
+const FAQS = [
+  ["How long until my order ships?","Every piece is printed to order. Expect 2–4 days of print time, then tracked shipping anywhere in the United States."],
+  ["What if a piece arrives broken?","Email the studio with a photo and we'll reprint and resend it. If a print comes out wrong in the studio it never leaves in your parcel."],
+  ["Can I pick my own colour?","Shop pieces are printed in white filament. For other colours, add a note at checkout or email the studio about a custom commission."],
+  ["Do you take custom orders?","Yes — custom commissions are open. Email hey@chromaprint.studio with what you have in mind."],
+  ["Is it safe for kids and pets?","Pieces are printed in PLA, PETG or recycled filament. They are not toys for small children and may contain small parts; supervise young kids and pets."]
+];
+/* ============================================= */
+
+const $ = (s, r=document) => r.querySelector(s);
+const money = n => "$" + n.toFixed(2);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const PH = "onerror=\"this.style.visibility='hidden'\"";
+
+/* ---------- cart ---------- */
+let cart = [];
+try { cart = JSON.parse(localStorage.getItem("chromaprint-cart")) || []; } catch(e){}
+const save = () => { try { localStorage.setItem("chromaprint-cart", JSON.stringify(cart)); } catch(e){} };
+const totals = () => {
+  const count = cart.reduce((n,i)=>n+i.qty,0);
+  const subtotal = cart.reduce((n,i)=>n+i.qty*i.price,0);
+  const shipping = count ? SHIPPING_FLAT : 0;
+  return {count, subtotal, shipping, total: subtotal + shipping};
+};
+function addToCart(id){
+  const p = PRODUCTS.find(p=>p.id===id); if(!p) return;
+  const f = cart.find(i=>i.id===id);
+  if (f) f.qty++; else cart.push({id:p.id,name:p.name,price:p.price,image:p.image,color:p.color,qty:1});
+  renderCart(); openDrawer();
+}
+function setQty(id, q){ cart = q<=0 ? cart.filter(i=>i.id!==id) : cart.map(i=>i.id===id?{...i,qty:q}:i); renderCart(); }
+
+function renderCart(){
+  save();
+  const t = totals();
+  $("#cart-count").textContent = t.count;
+  $("#drawer-items").innerHTML = cart.length ? cart.map(i=>`
+    <div class="line">
+      <img src="${esc(i.image)}" alt="${esc(i.name)}" ${PH}>
+      <div class="line__info">
+        <div class="line__top"><strong>${esc(i.name)}</strong><button class="icon-btn bare" data-rm="${i.id}" aria-label="Remove">🗑</button></div>
+        <span class="mono-sm">${esc(i.color)}</span>
+        <div class="line__bottom">
+          <div class="qty"><button data-dec="${i.id}" aria-label="Decrease">−</button><span>${i.qty}</span><button data-inc="${i.id}" aria-label="Increase">+</button></div>
+          <strong>${money(i.price*i.qty)}</strong>
+        </div>
+      </div>
+    </div>`).join("") : '<p class="mono-sm">Your packing list is empty.</p>';
+  $("#drawer-foot").classList.toggle("hidden", !cart.length);
+  $("#d-sub").textContent = money(t.subtotal); $("#d-ship").textContent = money(t.shipping); $("#d-total").textContent = money(t.total);
+  renderCheckout();
+}
+const openDrawer = () => $("#drawer").classList.add("on");
+const closeDrawer = () => $("#drawer").classList.remove("on");
+
+/* ---------- home sections ---------- */
+let activeCat = "all";
+function renderShop(){
+  $("#filters").innerHTML = CATEGORIES.map(([id,l])=>`<button class="filter ${id===activeCat?"on":""}" data-cat="${id}">${l}</button>`).join("");
+  const list = activeCat==="all" ? PRODUCTS : PRODUCTS.filter(p=>p.category===activeCat);
+  $("#stock-count").textContent = PRODUCTS.length + " objects in stock";
+  $("#products").innerHTML = list.length ? list.map(p=>`
+    <article class="card">
+      <div class="card__img">${p.badge?`<span class="badge">${esc(p.badge)}</span>`:""}<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy" ${PH}></div>
+      <div class="card__body">
+        <div class="card__row"><h3>${esc(p.name)}</h3><strong>${money(p.price)}</strong></div>
+        <p>${esc(p.description)}</p>
+        <div class="card__foot"><span class="swatch" title="${esc(p.color)}"></span><button class="btn btn--cyan btn--sm" data-add="${p.id}">+ Add</button></div>
+      </div>
+    </article>`).join("") : '<p class="mono-sm">Nothing here yet — check back after the next drop.</p>';
+}
+function renderStatic(){
+  const row = [...MARQUEE, ...MARQUEE];
+  $("#marquee").innerHTML = row.map(t=>`<span>${esc(t)}<i></i></span>`).join("");
+  $("#steps").innerHTML = STEPS.map(([ic,t,b],i)=>`
+    <div class="step"><div class="step__top"><span class="step__icon">${ic}</span><span class="step__num">0${i+1}</span></div><h3>${esc(t)}</h3><p>${esc(b)}</p></div>`).join("");
+  $("#faq-list").innerHTML = FAQS.map(([q,a])=>`
+    <div class="faq__item"><button aria-expanded="false"><span>${esc(q)}</span>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button><p>${esc(a)}</p></div>`).join("");
+  $("#year").textContent = new Date().getFullYear();
+}
+
+/* ---------- checkout ---------- */
+function renderCheckout(){
+  const t = totals();
+  $("#manifest-lines").innerHTML = cart.map(i=>`
+    <div class="manifest__line"><div><strong>${esc(i.name)}</strong><span class="mono-sm">${esc(i.color)} · ×${i.qty}</span></div><strong>${money(i.price*i.qty)}</strong></div>`).join("");
+  $("#m-sub").textContent = money(t.subtotal); $("#m-ship").textContent = money(t.shipping); $("#m-total").textContent = money(t.total);
+  $("#place-order").textContent = "🔒 Place order · " + money(t.total);
+  if (!$("#checkout-done").classList.contains("hidden")) return;
+  $("#checkout-empty").classList.toggle("hidden", cart.length>0);
+  $("#checkout-main").classList.toggle("hidden", cart.length===0);
+}
+async function post(url, body){
+  if (!url){ console.info("[demo mode] would POST:", body); await new Promise(r=>setTimeout(r,400)); return; }
+  const res = await fetch(url, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(body)});
+  if (!res.ok) throw new Error("HTTP " + res.status);
+}
+
+/* ---------- routing (hash based, works on GitHub Pages) ---------- */
+function route(){
+  const h = location.hash;
+  const view = h.startsWith("#/checkout") ? "checkout" : h.startsWith("#/unsubscribe") ? "unsub" : "home";
+  $("#view-home").classList.toggle("hidden", view!=="home");
+  $("#view-checkout").classList.toggle("hidden", view!=="checkout");
+  $("#view-unsub").classList.toggle("hidden", view!=="unsub");
+  $("#chrome-top").classList.toggle("hidden", view==="unsub");
+  $("#chrome-bottom").classList.toggle("hidden", view==="unsub");
+  if (view==="checkout") renderCheckout();
+  if (view!=="home") window.scrollTo(0,0);
+}
+function jump(id){
+  const go = () => document.getElementById(id)?.scrollIntoView({behavior:"smooth"});
+  if (location.hash.startsWith("#/") && location.hash !== "#/") { location.hash = "#/"; setTimeout(go, 60); } else go();
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click", e => {
+  const t = e.target.closest("[data-add],[data-cat],[data-inc],[data-dec],[data-rm],[data-jump],.faq__item button");
+  if (!t) return;
+  if (t.dataset.add) addToCart(t.dataset.add);
+  else if (t.dataset.cat){ activeCat = t.dataset.cat; renderShop(); }
+  else if (t.dataset.inc){ const i = cart.find(x=>x.id===t.dataset.inc); setQty(i.id, i.qty+1); }
+  else if (t.dataset.dec){ const i = cart.find(x=>x.id===t.dataset.dec); setQty(i.id, i.qty-1); }
+  else if (t.dataset.rm) setQty(t.dataset.rm, 0);
+  else if (t.dataset.jump){ e.preventDefault(); jump(t.dataset.jump); }
+  else { const item = t.closest(".faq__item"); const on = item.classList.toggle("on"); t.setAttribute("aria-expanded", on); }
+});
+$("#open-cart").onclick = openDrawer;
+$("#close-cart").onclick = closeDrawer;
+$("#drawer-bg").onclick = closeDrawer;
+$("#go-checkout").onclick = closeDrawer;
+document.addEventListener("keydown", e => { if (e.key==="Escape") closeDrawer(); });
+window.addEventListener("hashchange", route);
+
+$("#checkout-form").addEventListener("submit", async e => {
+  e.preventDefault();
+  const btn = $("#place-order"), t = totals();
+  btn.disabled = true; btn.textContent = "Placing order…"; $("#checkout-error").classList.add("hidden");
+  try {
+    const f = Object.fromEntries(new FormData(e.target));
+    await post(ORDER_ENDPOINT, {customer:{...f, country:"United States"}, items:cart, ...t});
+    cart = []; renderCart();
+    $("#checkout-main").classList.add("hidden"); $("#checkout-empty").classList.add("hidden");
+    $("#checkout-done").classList.remove("hidden"); e.target.reset();
+  } catch(err){ $("#checkout-error").classList.remove("hidden"); }
+  btn.disabled = false; renderCheckout();
+});
+$("#unsub-form").addEventListener("submit", async e => {
+  e.preventDefault(); $("#unsub-error").classList.add("hidden");
+  try {
+    await post(UNSUBSCRIBE_ENDPOINT, Object.fromEntries(new FormData(e.target)));
+    e.target.classList.add("hidden"); $("#unsub-done").classList.remove("hidden");
+  } catch(err){ $("#unsub-error").classList.remove("hidden"); }
+});
+
+/* ---------- init ---------- */
+renderStatic(); renderShop(); renderCart(); route();
+</script>
+</body>
+</html>
